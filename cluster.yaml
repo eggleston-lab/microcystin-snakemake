@@ -1,7 +1,7 @@
 __default__:
     system: 'slurm' #check if system is defined below
     account: mbrockley #required
-    time: 120 # minutes
+    time: 990 # minutes
     mem: 4 # GB
     threads: 8
     queue: standard # required
@@ -17,6 +17,17 @@ __default__:
             queue: "--partition={}"
             time: "--time={}"
             nodes: "-N {}"      # ntasks: 24
+convert:
+    queue: standard
+    threads: 20
+    mem: 3
+    time: 360
+
+prodigal:
+    queue: standard
+    threads: 20
+    mem: 3
+    time: 360
 
 hmmbuild: 
     queue: standard
