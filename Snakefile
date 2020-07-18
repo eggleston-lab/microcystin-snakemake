@@ -52,7 +52,7 @@ rule prodigal:
         "env/prodigal.yaml"
     shell:
         """
-        prodigal -i {input.dna} -a {output.amino}
+        prodigal -i {input.dna} -a {output.amino} -p meta
         """
 
 
