@@ -56,8 +56,8 @@ rule prodigal:
         """
 
 
-#SAMPLES = []
-#SAMPLES = [os.path.basename(f).replace(".proteins.faa", "") for f in glob.glob(PROTEIN_DIR + "/*.proteins.faa")]
+SAMPLES = []
+SAMPLES = [os.path.basename(f).replace(".proteins.faa", "") for f in glob.glob(PROTEIN_DIR + "/*.proteins.faa")]
 	
 rule hmmbuild:
     input: alignment = ALIGNMENT_DIR + "/{gene}/protein-alignment.fas"
