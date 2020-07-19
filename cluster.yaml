@@ -13,6 +13,7 @@ __default__:
             name: "--job-name={}"
             threads: "-n {}"
             mem: "--mem={}g"
+            mem_cpu: "--mem-per-cpu={}g"
             account: "--account={}"
             queue: "--partition={}"
             time: "--time={}"
@@ -20,13 +21,15 @@ __default__:
 convert:
     queue: standard
     threads: 20
-    mem: 3
+    mem: 4
+    mem_cpu: 3
     time: 360
 
 prodigal:
     queue: standard
     threads: 20
     mem: 3
+    mem_cpu: 3
     time: 360
 
 hmmbuild: 
