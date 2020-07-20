@@ -3,6 +3,7 @@ __default__:
     account: mbrockley #required
     time: 990 # minutes
     mem: 4 # GB
+    mem_cpu: 3000
     threads: 8
     queue: standard # required
     nodes: 1
@@ -13,7 +14,7 @@ __default__:
             name: "--job-name={}"
             threads: "-n {}"
             mem: "--mem={}g"
-            mem_cpu: "--mem-per-cpu={}g"
+            mem_cpu: "--mem-per-cpu={}GB"
             account: "--account={}"
             queue: "--partition={}"
             time: "--time={}"
@@ -22,14 +23,14 @@ convert:
     queue: standard
     threads: 20
     mem: 4
-    mem_cpu: 3
+    mem_cpu: 3000
     time: 360
 
 prodigal:
     queue: standard
     threads: 20
     mem: 3
-    mem_cpu: 3
+    mem_cpu: 3000
     time: 360
 
 hmmbuild: 
