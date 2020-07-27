@@ -32,7 +32,6 @@ rule all:
         prodigal = expand('{meta}/{genome}.proteins.faa', meta = PROTEIN_DIR, genome = METAGENOMES),
         hmmbuild =  expand('{base}/{gene}/alignment-profile.hmm', base = ALIGNMENT_DIR, gene = genelist), 
         hmmsearch = expand('{base}/hmm_results/{gene}/{sample}.hmmout', base = OUTPUT_DIR, gene = genelist, sample = SAMPLES ), 
-        hmmtable = expand('{base}/hmm_results/{gene}/{sample}.eval.tab', base = OUTPUT_DIR, gene = genelist, sample = SAMPLES ), 
         hmm_allhits = expand('{base}/hmm_results/{gene}/{sample}.hits.faa', base = OUTPUT_DIR, gene = genelist, sample = SAMPLES ) 
  
 rule convert:
@@ -52,7 +51,7 @@ rule prodigal:
         "env/prodigal.yaml"
     shell:
         """
-        prodigal -i {input.dna} -a {output.amino} -p meta
+        prodigal -i {input.dna} -a {output.amino} 
         """
 
 
@@ -74,29 +73,20 @@ rule hmmsearch:
         proteins = PROTEIN_DIR + "/{sample}.proteins.faa", 
         hmm = ALIGNMENT_DIR + "/{gene}/alignment-profile.hmm"
     output: 
-        hmmout = OUTPUT_DIR + "/hmm_results/{gene}/{sample}.hmmout", 
+        hmmout = OUTPUT_DIR + "/hmm_results/{gene}/{sample}.hmmout",
+        tblout = OUTPUT_DIR + "/hmm_results/{gene}/{sample}.tblout" 
     params:
-        cpu = "--cpu 2"
+        all = "--cpu 2 --tblout"
     conda:
         "env/hmmer.yaml"
     shell:
         """
-        hmmsearch {params.cpu} {input.hmm} {input.proteins} > {output.hmmout}  
+        hmmsearch {params.all} {output.tblout} {input.hmm} {input.proteins} > {output.hmmout}  
         """
-
-rule parse_hmmsearch:
-    input:
-        OUTPUT_DIR + "/hmm_results/{gene}/{sample}.hmmout"
-    output:
-        OUTPUT_DIR + "/hmm_results/{gene}/{sample}.eval.tab"
-    conda:
-        "env/biopython.yaml"
-    script:
-        "scripts/bioconda-parser.py"
 
 rule get_contig_hits:
     input:
-        eval_tab = OUTPUT_DIR + "/hmm_results/{gene}/{sample}.eval.tab", 
+        tblout = OUTPUT_DIR + "/hmm_results/{gene}/{sample}.tblout", 
         proteins = PROTEIN_DIR + "/{sample}.proteins.faa",
     output:
         OUTPUT_DIR + "/hmm_results/{gene}/{sample}.hits.faa"
@@ -104,5 +94,5 @@ rule get_contig_hits:
         "env/seqtk.yaml"
     shell: 
         """
-        cut -f1 {input.eval_tab} | seqtk subseq {input.proteins} - > {output}
+        cut -d " " -f1 {input.tblout} | seqtk subseq {input.proteins} - > {output}
         """
