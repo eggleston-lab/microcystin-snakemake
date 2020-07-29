@@ -47,7 +47,7 @@ hmmsearch:
 
 get_contig_hits:
     queue: standard
-    threads: 1
-    mem: 1
+    threads: 10
+    mem: 4
     time: 30
 
