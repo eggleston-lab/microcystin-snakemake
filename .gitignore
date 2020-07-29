@@ -1,4 +1,5 @@
 .snakemake/
 
-output/
-output/*
+*.out
+
+
