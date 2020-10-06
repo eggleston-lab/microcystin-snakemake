@@ -1,0 +1,29 @@
+#                                                                                     --- full sequence ---- --- best 1 domain ---- --- domain number estimation ----
+# target name                              accession  query name           accession    E-value  score  bias   E-value  score  bias   exp reg clu  ov env dom rep inc description of target
+#                      ------------------- ---------- -------------------- ---------- --------- ------ ----- --------- ------ -----   --- --- --- --- --- --- --- --- ---------------------
+HISEQ15:203:C7P4WANXX:5:1309:10754:21599_1 -          protein-alignment    -            2.7e-05   32.8   0.0   2.9e-05   32.7   0.0   1.0   1   0   0   1   1   1   1 # 2 # 151 # -1 # ID=24915766_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.620
+HISEQ15:203:C7P4WANXX:5:2301:1455:30482_1  -          protein-alignment    -             0.0061   25.0   0.0    0.0061   25.0   0.0   1.0   1   0   0   1   1   1   1 # 2 # 151 # -1 # ID=49602643_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.600
+HISEQ15:203:C7P4WANXX:5:2205:6884:42344_1  -          protein-alignment    -              0.045   22.1   0.1     0.045   22.1   0.1   1.0   1   0   0   1   1   1   0 # 2 # 151 # 1 # ID=42286585_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.293
+HISEQ15:203:C7P4WANXX:5:1205:14391:33906_1 -          protein-alignment    -               0.12   20.7   0.0      0.12   20.7   0.0   1.0   1   0   0   1   1   1   0 # 1 # 150 # 1 # ID=12518292_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.533
+HISEQ15:203:C7P4WANXX:5:2106:17145:28259_1 -          protein-alignment    -               0.76   18.0   0.0      0.77   18.0   0.0   1.0   1   0   0   1   1   1   0 # 3 # 149 # 1 # ID=33090612_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.456
+HISEQ15:203:C7P4WANXX:5:1208:8090:100897_1 -          protein-alignment    -                2.3   16.4   0.1       2.4   16.3   0.1   1.0   1   0   0   1   1   1   0 # 3 # 146 # 1 # ID=14747380_1;partial=10;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.201
+HISEQ15:203:C7P4WANXX:5:1106:7337:41915_1  -          protein-alignment    -                2.4   16.4   0.0       2.4   16.4   0.0   1.0   1   0   0   1   1   1   0 # 1 # 150 # 1 # ID=3178379_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.273
+HISEQ15:203:C7P4WANXX:5:2106:10643:29081_1 -          protein-alignment    -                2.4   16.4   0.0       2.4   16.4   0.0   1.0   1   0   0   1   1   1   0 # 1 # 150 # 1 # ID=33094410_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.273
+HISEQ15:203:C7P4WANXX:5:2216:14419:27285_1 -          protein-alignment    -                3.3   15.9   0.1       3.3   15.9   0.1   1.0   1   0   0   1   1   1   0 # 2 # 151 # 1 # ID=48940521_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.227
+HISEQ15:203:C7P4WANXX:5:1306:17432:9239_1  -          protein-alignment    -                4.1   15.6   0.0       4.1   15.6   0.0   1.0   1   0   0   1   1   1   0 # 2 # 151 # -1 # ID=22975177_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.327
+HISEQ15:203:C7P4WANXX:5:1109:20101:4416_1  -          protein-alignment    -                5.3   15.2   0.0       5.5   15.2   0.0   1.0   1   0   0   1   1   1   0 # 3 # 149 # -1 # ID=4796364_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.347
+HISEQ15:203:C7P4WANXX:5:2303:16683:38242_1 -          protein-alignment    -                5.9   15.1   0.0         6   15.0   0.0   1.0   1   0   0   1   1   1   0 # 1 # 150 # 1 # ID=50773372_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.253
+HISEQ15:203:C7P4WANXX:5:1214:20192:42084_1 -          protein-alignment    -                6.5   14.9   0.0       6.6   14.9   0.0   1.0   1   0   0   1   1   1   0 # 3 # 149 # 1 # ID=18217596_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.306
+HISEQ15:203:C7P4WANXX:5:1202:2998:5300_1   -          protein-alignment    -                7.7   14.7   0.1       7.8   14.7   0.1   1.0   1   0   0   1   1   1   0 # 3 # 149 # 1 # ID=10607744_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.340
+HISEQ15:203:C7P4WANXX:5:2202:1398:6100_1   -          protein-alignment    -                7.7   14.7   0.1       7.8   14.7   0.1   1.0   1   0   0   1   1   1   0 # 3 # 149 # 1 # ID=40392255_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.340
+HISEQ15:203:C7P4WANXX:5:2310:1358:91571_1  -          protein-alignment    -                9.2   14.4   0.0       9.4   14.4   0.0   1.0   1   0   0   1   1   1   0 # 2 # 151 # -1 # ID=55250661_1;partial=11;start_type=Edge;rbs_motif=None;rbs_spacer=None;gc_cont=0.600
+#
+# Program:         hmmsearch
+# Version:         3.3 (Nov 2019)
+# Pipeline mode:   SEARCH
+# Query file:      /home/mbrockley/snakemake/inputs/mcyB/alignment-profile.hmm
+# Target file:     /storage/eggleston-research/metagenomes/CB_VirMetaG_FD3.proteins.faa
+# Option settings: hmmsearch --tblout /storage/eggleston-research/mcyFASTA/hmm_results/hmm_results/mcyB/CB_VirMetaG_FD3.tblout --cpu 2 /home/mbrockley/snakemake/inputs/mcyB/alignment-profile.hmm /storage/eggleston-research/metagenomes/CB_VirMetaG_FD3.proteins.faa 
+# Current dir:     /home/mbrockley/snakemake
+# Date:            Mon Jul 27 15:30:33 2020
+# [ok]
