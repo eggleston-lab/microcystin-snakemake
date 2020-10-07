@@ -20,7 +20,7 @@ for sheet in CSVS:
 		for row in csv_read_dict:
 			Sequence_list.append(row['domain_name'])
 		Sequence_ID.close()
-	split = os.path.splitest(os.splitext(sheet)[0])[0]
+	split = os.path.splitext(os.path.splitext(sheet)[0])[0]
 	with open(split + ".filteredseq.list", "w+") as list_file:
 		for sequence in Sequence_list:
 			list_file.write(sequence)
