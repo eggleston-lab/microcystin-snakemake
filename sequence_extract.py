@@ -23,7 +23,7 @@ for sheet in CSVS:
 	split = os.path.splitext(os.path.splitext(sheet)[0])[0]
 	with open(split + ".filteredseq.list", "w+") as list_file:
 		for sequence in Sequence_list:
-			list_file.write(sequence)
+			list_file.write(sequence + "\n")
 		list_file.close()
 	#run esl-sfetch for the list file
 	
