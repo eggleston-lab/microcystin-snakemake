@@ -33,6 +33,13 @@ prodigal:
     mem_cpu: 3000
     time: 360
 
+parse:
+    queue: standard
+    threads: 20
+    mem: 3
+    mem_cpu: 3000
+    time: 360
+
 hmmbuild: 
     queue: standard
     threads: 1
@@ -44,10 +51,4 @@ hmmsearch:
     threads: 8
     mem: 4
     time: 120
-
-get_contig_hits:
-    queue: standard
-    threads: 10
-    mem: 4
-    time: 30
 

@@ -24,15 +24,16 @@ SAMPLES = [os.path.basename(f).replace(".proteins.faa", "") for f in glob.glob(P
 METAGENOMES = [os.path.basename(name).replace(".fastq.gz", "") for name in glob.glob(PROTEIN_DIR + "/*.fastq.gz")]
 
 #----RULES----#
-localrules: parse_hmmsearch
+
 
 rule all:
     input:
         convert = expand('{meta}/{genome}.fasta', meta = PROTEIN_DIR, genome = METAGENOMES),
         prodigal = expand('{meta}/{genome}.proteins.faa', meta = PROTEIN_DIR, genome = METAGENOMES),
+	parse = expand('{meta}/{genome}.forward.proteins.faa', meta = PROTEIN_DIR, genome = METAGENOMES),
         hmmbuild =  expand('{base}/{gene}/alignment-profile.hmm', base = ALIGNMENT_DIR, gene = genelist), 
-        hmmsearch = expand('{base}/hmm_results/{gene}/{sample}.hmmout', base = OUTPUT_DIR, gene = genelist, sample = SAMPLES ), 
-        hmm_allhits = expand('{base}/hmm_results/{gene}/{sample}.hits.faa', base = OUTPUT_DIR, gene = genelist, sample = SAMPLES ) 
+        hmmsearch = expand('{base}/hmm_results/{gene}/{sample}.forward.hmmout', base = OUTPUT_DIR, gene = genelist, sample = SAMPLES ) 
+        
  
 rule convert:
     input: archive = PROTEIN_DIR + "/{genome}.fastq.gz"
@@ -54,10 +55,14 @@ rule prodigal:
         prodigal -i {input.dna} -a {output.amino} 
         """
 
+rule parse:
+    input: protein = PROTEIN_DIR + "/{genome}.proteins.faa"
+    output: forward = PROTEIN_DIR + "/{genome}.forward.proteins.faa"
+    conda:
+        "env/biopython.yaml"
+    script:
+        "scripts/parser.py"
 
-SAMPLES = []
-SAMPLES = [os.path.basename(f).replace(".proteins.faa", "") for f in glob.glob(PROTEIN_DIR + "/*.proteins.faa")]
-	
 rule hmmbuild:
     input: alignment = ALIGNMENT_DIR + "/{gene}/protein-alignment.fas"
     output: hmm = ALIGNMENT_DIR + "/{gene}/alignment-profile.hmm"
@@ -70,11 +75,11 @@ rule hmmbuild:
 
 rule hmmsearch:
     input: 
-        proteins = PROTEIN_DIR + "/{sample}.proteins.faa", 
+        proteins = PROTEIN_DIR + "/{sample}.forward.proteins.faa", 
         hmm = ALIGNMENT_DIR + "/{gene}/alignment-profile.hmm"
     output: 
-        hmmout = OUTPUT_DIR + "/hmm_results/{gene}/{sample}.hmmout",
-        tblout = OUTPUT_DIR + "/hmm_results/{gene}/{sample}.tblout" 
+        hmmout = OUTPUT_DIR + "/hmm_results/{gene}/{sample}.forward.hmmout",
+        tblout = OUTPUT_DIR + "/hmm_results/{gene}/{sample}.forward.tblout" 
     params:
         all = "--cpu 2 --tblout"
     conda:
@@ -84,15 +89,3 @@ rule hmmsearch:
         hmmsearch {params.all} {output.tblout} {input.hmm} {input.proteins} > {output.hmmout}  
         """
 
-rule get_contig_hits:
-    input:
-        tblout = OUTPUT_DIR + "/hmm_results/{gene}/{sample}.tblout", 
-        proteins = PROTEIN_DIR + "/{sample}.proteins.faa",
-    output:
-        OUTPUT_DIR + "/hmm_results/{gene}/{sample}.hits.faa"
-    conda:
-        "env/seqtk.yaml"
-    shell: 
-        """
-        cut -d " " -f1 {input.tblout} | seqtk subseq {input.proteins} - > {output}
-        """
