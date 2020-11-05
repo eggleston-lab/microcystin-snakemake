@@ -1,0 +1,39 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 20
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	parse
+	1
+
+[Thu Nov  5 13:58:06 2020]
+rule parse:
+    input: /storage/eggleston-research/metagenomes/Su13VDMM110SN_FD.proteins.faa
+    output: /storage/eggleston-research/metagenomes/Su13VDMM110SN_FD.forward.proteins.faa
+    jobid: 0
+    wildcards: genome=Su13VDMM110SN_FD
+
+Activating conda environment: /home/mbrockley/snakemake/.snakemake/conda/29158ce4
+Activating conda environment: /home/mbrockley/snakemake/.snakemake/conda/29158ce4
+  File "/home/mbrockley/snakemake/.snakemake/scripts/tmp856f7jho.parser.py", line 17
+    for i in range(0, len(sequences), 2):
+                                        ^
+SyntaxError: invalid syntax
+[Thu Nov  5 13:58:09 2020]
+Error in rule parse:
+    jobid: 0
+    output: /storage/eggleston-research/metagenomes/Su13VDMM110SN_FD.forward.proteins.faa
+    conda-env: /home/mbrockley/snakemake/.snakemake/conda/29158ce4
+
+RuleException:
+CalledProcessError in line 64 of /home/mbrockley/snakemake/Snakefile:
+Command 'source /home/mbrockley/anaconda3/bin/activate '/home/mbrockley/snakemake/.snakemake/conda/29158ce4'; set -euo pipefail;  python /home/mbrockley/snakemake/.snakemake/scripts/tmp856f7jho.parser.py' returned non-zero exit status 1.
+  File "/home/mbrockley/.local/lib/python3.6/site-packages/snakemake/executors/__init__.py", line 2189, in run_wrapper
+  File "/home/mbrockley/snakemake/Snakefile", line 64, in __rule_parse
+  File "/home/mbrockley/.local/lib/python3.6/site-packages/snakemake/executors/__init__.py", line 529, in _callback
+  File "/usr/lib64/python3.6/concurrent/futures/thread.py", line 56, in run
+  File "/home/mbrockley/.local/lib/python3.6/site-packages/snakemake/executors/__init__.py", line 515, in cached_or_run
+  File "/home/mbrockley/.local/lib/python3.6/site-packages/snakemake/executors/__init__.py", line 2201, in run_wrapper
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
