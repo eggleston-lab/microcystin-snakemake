@@ -1,6 +1,6 @@
 #----Matt Microcystin Gene Finder----#
 
-configfile: "/home/mbrockley/snakemake/config.yaml"
+configfile: "/home/mbrockley/snakemake/config/config.yaml"
 
 import io
 import os
@@ -15,6 +15,7 @@ PROTEIN_DIR = config['protein_dir'] #metagenomes in this directory
 ALIGNMENT_DIR = config['alignment_dir']
 OUTPUT_DIR = config['output_dir']
 GENEFILE = config['gene_list']
+OUTPUT_LIST = config['small_outputs']
 genelist = []
 with open(GENEFILE, 'r') as f:
     for line in f:
@@ -30,9 +31,12 @@ rule all:
     input:
         convert = expand('{meta}/{genome}.fasta', meta = PROTEIN_DIR, genome = METAGENOMES),
         prodigal = expand('{meta}/{genome}.proteins.faa', meta = PROTEIN_DIR, genome = METAGENOMES),
-	parse = expand('{meta}/{genome}.forward.proteins.faa', meta = PROTEIN_DIR, genome = METAGENOMES),
+	parse = expand('{meta}/{genome}.index.proteins.faa', meta = PROTEIN_DIR, genome = METAGENOMES),
         hmmbuild =  expand('{base}/{gene}/alignment-profile.hmm', base = ALIGNMENT_DIR, gene = genelist), 
-        hmmsearch = expand('{base}/hmm_results/{gene}/{sample}.forward.hmmout', base = OUTPUT_DIR, gene = genelist, sample = SAMPLES ) 
+        hmmsearch = expand('{base}/hmm_results/{gene}/{sample}.index.hmmout', base = OUTPUT_DIR, gene = genelist, sample = SAMPLES),
+        eval_filter = expand('{base}/{gene}/{sample}.index.csv', base = OUTPUT_LIST, gene = genelist, sample = METAGENOMES),
+        easel_profile = expand('{meta}/{genome}.index.proteins.faa', meta = PROTEIN_DIR, genome = METAGENOMES),
+        easel_fetch = expand('{base}/{gene}/{sample}.filtered.hits.fasta', base = OUTPUT_LIST, gene = genelist, sample = METAGENOMES) 
         
  
 rule convert:
@@ -57,11 +61,12 @@ rule prodigal:
 
 rule parse:
     input: protein = PROTEIN_DIR + "/{genome}.proteins.faa"
-    output: forward = PROTEIN_DIR + "/{genome}.forward.proteins.faa"
+    output: clean = PROTEIN_DIR + "/{genome}.index.proteins.faa"
     conda:
         "env/biopython.yaml"
     script:
-        "scripts/parser.py"
+        "scripts/index_metagenomes.py"
+        
 
 rule hmmbuild:
     input: alignment = ALIGNMENT_DIR + "/{gene}/protein-alignment.fas"
@@ -75,11 +80,11 @@ rule hmmbuild:
 
 rule hmmsearch:
     input: 
-        proteins = PROTEIN_DIR + "/{sample}.forward.proteins.faa", 
+        proteins = PROTEIN_DIR + "/{sample}.index.proteins.faa", 
         hmm = ALIGNMENT_DIR + "/{gene}/alignment-profile.hmm"
     output: 
-        hmmout = OUTPUT_DIR + "/hmm_results/{gene}/{sample}.forward.hmmout",
-        tblout = OUTPUT_DIR + "/hmm_results/{gene}/{sample}.forward.tblout" 
+        hmmout = OUTPUT_DIR + "/hmm_results/{gene}/{sample}.index.hmmout",
+        tblout = OUTPUT_DIR + "/hmm_results/{gene}/{sample}.index.tblout" 
     params:
         all = "--cpu 2 --tblout"
     conda:
@@ -87,5 +92,40 @@ rule hmmsearch:
     shell:
         """
         hmmsearch {params.all} {output.tblout} {input.hmm} {input.proteins} > {output.hmmout}  
+        """
+
+rule eval_filter:
+    input:
+        table = OUTPUT_DIR + "/hmm_results/{gene}/{sample}.index.tblout"
+    output:
+        csv = OUTPUT_LIST + "/{gene}/{sample}.filtered.csv",
+        list = OUTPUT_LIST + "/{gene}/{sample}.list"
+    script:
+        "scripts/parse.R"
+
+rule easel_profile:
+    input:
+        filtered_protein = PROTEIN_DIR + "/{sample}.index.proteins.faa"
+    output:
+        index = PROTEIN_DIR + "/{sample}.index.proteins.faa.ssi"
+    conda:
+        "env/easel.yaml"
+    shell:
+        """
+        esl-sfetch --index {input.filtered_protein}
+        """
+
+rule easel_fetch:
+    input:
+        ssi = PROTEIN_DIR + "/{sample}.index.proteins.faa.ssi",
+        search_space = PROTEIN_DIR + "/{sample}.index.proteins.faa",
+        seq_list = OUTPUT_LIST + "/{gene}/{sample}.list"
+    output:
+        hits = OUTPUT_LIST + "/{gene}/{sample}.filtered.hits.fasta"
+    conda:
+        "env/easel.yaml"
+    shell:
+        """
+        esl-sfetch -f {input.search_space} {input.seq_list} > {output.hits}
         """
 

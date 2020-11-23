@@ -1,0 +1,6 @@
+name: easel
+channels:
+ - bioconda
+ - defaults
+dependencies:
+ - easel

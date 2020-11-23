@@ -1,0 +1,5 @@
+alignment_dir: "/home/mbrockley/snakemake/inputs"
+protein_dir: "/storage/eggleston-research/metagenomes"
+output_dir: "/storage/eggleston-research/mcyFASTA/hmm_results"
+gene_list: "/home/mbrockley/snakemake/inputs/genelist.txt"
+small_outputs: "/home/mbrockley/snakemake/outputs"

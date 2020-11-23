@@ -6,7 +6,7 @@ def forward_fasta_generator(input_file, output_file):
 	seq_to_write = []
 	
 	with open(input_file, "rU") as fasta_prot:
-		sequences = list(SeqIO.parse(fasta_prot, "fasta")
+		sequences = list(SeqIO.parse(fasta_prot, "fasta"))
 	
 	
 	
