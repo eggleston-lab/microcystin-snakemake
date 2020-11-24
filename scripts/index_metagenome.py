@@ -9,10 +9,10 @@ def index_metagenome(metagenome):
 	
 	#read in metagenome as a list of sequences
 	with open(metagenome, "r") as fasta:
-		sequences = list(SeqIO.parse(fasta, "fasta")
+		sequences = list(SeqIO.parse(fasta, "fasta"))
 	
 	#loop through sequences changing the sequence name and ID
-	for i in range(0, len(sequences):
+	for i in range(0, len(sequences)):
 		
 		#modify the sequence ID with the sequence index
 		sequences[i].id = str(sequences[i].id) + ":" + str(i)
