@@ -38,7 +38,7 @@ prodigal:
 parse:
     name: index sequences
     queue: himem-standard 
-    mem: 200
+    mem: 500
     time: 720
 
 hmmbuild: 
