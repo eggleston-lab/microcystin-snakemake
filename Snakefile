@@ -21,7 +21,7 @@ with open(GENEFILE, 'r') as f:
     for line in f:
         genelist.append(line.strip())
 #metagenomes go here
-SAMPLES = [os.path.basename(f).replace(".proteins.faa", "") for f in glob.glob(PROTEIN_DIR + "/*.proteins.faa")]
+SAMPLES = [os.path.basename(f).replace(".index.proteins.faa", "") for f in glob.glob(PROTEIN_DIR + "/*.index.proteins.faa")]
 METAGENOMES = [os.path.basename(name).replace(".fastq.gz", "") for name in glob.glob(PROTEIN_DIR + "/*.fastq.gz")]
 
 #----RULES----#
@@ -31,12 +31,11 @@ rule all:
     input:
         convert = expand('{meta}/{genome}.fasta', meta = PROTEIN_DIR, genome = METAGENOMES),
         prodigal = expand('{meta}/{genome}.proteins.faa', meta = PROTEIN_DIR, genome = METAGENOMES),
-	parse = expand('{meta}/{genome}.index.proteins.faa', meta = PROTEIN_DIR, genome = METAGENOMES),
-        hmmbuild =  expand('{base}/{gene}/alignment-profile.hmm', base = ALIGNMENT_DIR, gene = genelist), 
+	hmmbuild =  expand('{base}/{gene}/alignment-profile.hmm', base = ALIGNMENT_DIR, gene = genelist), 
         hmmsearch = expand('{base}/hmm_results/{gene}/{sample}.index.hmmout', base = OUTPUT_DIR, gene = genelist, sample = SAMPLES),
-        eval_filter = expand('{base}/{gene}/{sample}.index.csv', base = OUTPUT_LIST, gene = genelist, sample = METAGENOMES),
-        easel_profile = expand('{meta}/{genome}.index.proteins.faa', meta = PROTEIN_DIR, genome = METAGENOMES),
-        easel_fetch = expand('{base}/{gene}/{sample}.filtered.hits.fasta', base = OUTPUT_LIST, gene = genelist, sample = METAGENOMES) 
+	eval_filter = expand('{base}/{gene}/{sample}.list', base = OUTPUT_LIST, gene = genelist, sample = SAMPLES),
+	easel_profile = expand('{base}/{sample}.index.proteins.faa.ssi', base = PROTEIN_DIR, sample = SAMPLES),
+        easel_fetch = expand('{base}/{gene}/{sample}.filtered.hits.fasta', base = OUTPUT_LIST, gene = genelist, sample = SAMPLES)
         
  
 rule convert:
@@ -58,15 +57,6 @@ rule prodigal:
         """
         prodigal -i {input.dna} -a {output.amino} 
         """
-
-rule parse:
-    input: protein = PROTEIN_DIR + "/{genome}.proteins.faa"
-    output: clean = PROTEIN_DIR + "/{genome}.index.proteins.faa"
-    conda:
-        "env/biopython.yaml"
-    script:
-        "scripts/index_metagenomes.py"
-        
 
 rule hmmbuild:
     input: alignment = ALIGNMENT_DIR + "/{gene}/protein-alignment.fas"

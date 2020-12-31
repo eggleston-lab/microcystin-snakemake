@@ -23,4 +23,4 @@ filter_hmmer_data <- function(input_path, output_csv, output_list) {
 }
 
 #execute for snakemake
-filter_hmmer_data(snakemake@input[["table"]], snakemake@output[["csv"]], snakemake@output[["list"]]
+filter_hmmer_data(snakemake@input[["table"]], snakemake@output[["csv"]], snakemake@output[["list"]])

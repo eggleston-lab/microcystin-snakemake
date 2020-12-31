@@ -9,6 +9,7 @@ import os
 def index_metagenome(metagenome, cleaned_file):
 	data_to_write = []
 	
+		
 	#read in metagenome as a list of sequences
 	with open(metagenome, "r") as fasta:
 		sequences = list(SeqIO.parse(fasta, "fasta"))
@@ -26,9 +27,27 @@ def index_metagenome(metagenome, cleaned_file):
 	
 	#write the data to a new fasta file
 	with open(cleaned_file, "w") as index_fasta:
-		SeqIO.write(data_to_write, "fasta")
+		SeqIO.write(data_to_write, index_fasta, "fasta")
 	index_fasta.close()
 
 
-index_metagenome(snakemake.input, snakemake.output)
+
+path = "/storage/eggleston-research/metagenomes/"
+oldext = ".proteins.faa"
+newext = ".index.proteins.faa"
+metagenome = ["CB_VirMetaG_FD1",
+	"CB_VirMetaG_FD2",
+	"CB_VirMetaG_FD3",
+	"Fa13VDMM110DN_FD",
+	"Fa13VDMM110SN_FD",
+	"LakEricontroER36_FD",
+	"LakEriepJuly2011",
+	"NOAtaG_3_FD",
+	"NOAtaG_6_FD",
+	"NOAtaG_7_FD",
+	"NOAtaG_FD",
+	"Su13VDMM110SN_FD"]
 	
+
+for genome in metagenome:
+	index_metagenome(path + genome + oldext, path + genome + newext)
