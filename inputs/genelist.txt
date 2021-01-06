@@ -2,3 +2,5 @@ mcyA
 mcyB
 mcyC
 mcyD
+sxtA
+sxtG

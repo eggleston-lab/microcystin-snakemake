@@ -35,18 +35,9 @@ def index_metagenome(metagenome, cleaned_file):
 path = "/storage/eggleston-research/metagenomes/"
 oldext = ".proteins.faa"
 newext = ".index.proteins.faa"
-metagenome = ["CB_VirMetaG_FD1",
-	"CB_VirMetaG_FD2",
-	"CB_VirMetaG_FD3",
-	"Fa13VDMM110DN_FD",
-	"Fa13VDMM110SN_FD",
-	"LakEricontroER36_FD",
-	"LakEriepJuly2011",
-	"NOAtaG_3_FD",
-	"NOAtaG_6_FD",
-	"NOAtaG_7_FD",
-	"NOAtaG_FD",
-	"Su13VDMM110SN_FD"]
+metagenome = ["CB_VirMetaG_3_FD1",
+	"CB_VirMetaG_3_FD2",
+	"CB_VirMetaG_3_FD3"]
 	
 
 for genome in metagenome:
