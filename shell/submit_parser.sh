@@ -16,6 +16,7 @@ echo "Node: ${SLURMD_NODENAME}"
 echo "Starting: "`date +"%D %T"`
 
 # Your calculations here
+cd ~/snakemake/scripts
 python3 index_metagenome.py
 
 # End of job info
